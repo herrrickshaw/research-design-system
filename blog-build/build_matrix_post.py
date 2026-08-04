@@ -20,8 +20,9 @@ for date, title in sqlite3.connect(DB).execute("SELECT date,title FROM pib_items
     if not date:
         continue
     for s in set(scheme_hits(title)):
-        d = pib.setdefault(s, {"n": 0, "last": date})
+        d = pib.setdefault(s, {"n": 0, "first": date, "last": date})
         d["n"] += 1
+        d["first"] = min(d["first"], date)
         d["last"] = max(d["last"], date)
 
 def load(path):
@@ -40,13 +41,13 @@ n_rs, rs = load("rs_pq_registry.json")
 
 rows = []
 for s in sorted(set(pib) | set(ls) | set(rs)):
-    a = pib.get(s, {"n": 0, "last": ""})
+    a = pib.get(s, {"n": 0, "first": "", "last": ""})
     l = ls.get(s, {"n": 0, "star": 0, "last": ""})
     r = rs.get(s, {"n": 0, "star": 0, "last": ""})
     tot = l["n"] + r["n"]
     last_q = max(l["last"], r["last"])
     b = "A" if (tot >= ACTIVE_MIN_Q and last_q >= recent) else ("B" if tot else "C")
-    rows.append(dict(s=s, b=b, pib=a["n"], pib_last=a["last"], ls=l["n"], rs=r["n"],
+    rows.append(dict(s=s, b=b, pib=a["n"], pib_first=a["first"], pib_last=a["last"], ls=l["n"], rs=r["n"],
                      star=l["star"] + r["star"], tot=tot, last=last_q))
 
 A = sorted([r for r in rows if r["b"] == "A"], key=lambda x: -x["tot"])
@@ -59,12 +60,13 @@ def esc(x):
 
 def table(rws, empty_qs=False):
     h = ('<div class="twrap"><table><thead><tr><th>Scheme</th>'
-         '<th class="num">PIB anns</th><th class="num">LS Qs</th>'
+         '<th>First announced</th><th class="num">PIB anns</th><th class="num">LS Qs</th>'
          '<th class="num">RS Qs</th><th class="num">&#9733;</th>'
          '<th>Last question</th></tr></thead><tbody>')
     body = []
     for r in rws:
-        body.append(f'<tr><td>{esc(r["s"])}</td><td class="num">{r["pib"]}</td>'
+        body.append(f'<tr><td>{esc(r["s"])}</td><td>{r["pib_first"]}</td>'
+                    f'<td class="num">{r["pib"]}</td>'
                     f'<td class="num">{r["ls"] or ""}</td><td class="num">{r["rs"] or ""}</td>'
                     f'<td class="num">{r["star"] or ""}</td>'
                     f'<td>{r["last"] or ("&#8212;" if empty_qs else "")}</td></tr>')
@@ -171,7 +173,9 @@ may hide under generic &ldquo;PLI Scheme&rdquo; subjects.</p>
 houses&#39; indexes), so zero captured questions is an upper bound on neglect, not proof
 of it. &ldquo;Monitored&rdquo; means Parliament keeps asking &mdash; whether the answers show
 progress is in the linked answer PDFs of the two registries, not in these counts. PIB
-counts include progress releases, not only launches. Thresholds (&ge;{ACTIVE_MIN_Q}
+counts include progress releases, not only launches; &ldquo;first announced&rdquo; is the
+scheme&#39;s first appearance in the register (which starts January 2017), so schemes
+older than 2017 show their first register mention, not their launch. Thresholds (&ge;{ACTIVE_MIN_Q}
 questions, 12-month recency) are stated, tunable constants. Generated {today} by
 <code>scripts/build_scrutiny_matrix.py</code> in
 <a href="https://github.com/herrrickshaw/digital-twin-for-ipa" style="color:var(--acc)">digital-twin-for-ipa</a>;
