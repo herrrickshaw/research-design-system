@@ -1,0 +1,46 @@
+/* reportage.css — quarterly reportage / announcement-feed theme.
+   Lifted verbatim from the live "Govt announcements, policies and news" post on
+   the Markups-and-wireframes blog, which is the canonical source of the sage/teal
+   family and — importantly — the REFERENCE IMPLEMENTATION for dark mode.
+
+   Why this one is safe when the earlier blog's was not: it flips the text token
+   (--ink) in the same block as the surface tokens. The bug on the other blog came
+   from flipping surfaces dark while text stayed force-black. If you add a dark
+   block anywhere, flip text and surface together or not at all. */
+.rds.theme-reportage{
+  --c-bg:#eef1ea;
+  --c-surface:#ffffff;
+  --c-surface-2:#f2f5f0;
+  --c-border:#d7ddd4;
+  --c-text:#1d2321;
+  --c-text-mut:#5c6660;
+  --c-accent:#1f5f5b;
+  --c-accent-soft:#e3ecea;
+  --c-on-accent:#fff;
+  --c-rule:#1f5f5b;
+  --c-neg:#8a5a12;
+  --font-body:var(--font-sans);
+}
+@media (prefers-color-scheme:dark){
+  .rds.theme-reportage{
+    --c-bg:#151a18;
+    --c-surface:#1e2522;
+    --c-surface-2:#232b27;
+    --c-border:#2e3833;
+    --c-text:#e6eae7;      /* text flips WITH the surface — this is the point */
+    --c-text-mut:#98a39d;
+    --c-accent:#6fb3ac;
+    --c-accent-soft:#23332f;
+    --c-neg:#d9a44a;
+  }
+}
+
+/* Compatibility shim — lets an existing document keep its own variable names
+   while inheriting the shared scale. Bind local names to the contract:
+       <div class="rds theme-reportage rds-compat"> … </div>            */
+.rds-compat{
+  --page-bg:var(--c-bg);   --card:var(--c-surface);  --chip:var(--c-surface-2);
+  --ink:var(--c-text);     --muted:var(--c-text-mut);
+  --accent:var(--c-accent);--accent-soft:var(--c-accent-soft);
+  --line:var(--c-border);  --warn:var(--c-neg);
+}

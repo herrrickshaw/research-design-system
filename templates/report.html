@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Report template — Research Design System</title>
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../themes/report.css">
+<link rel="stylesheet" href="../components/components.css">
+<link rel="stylesheet" href="../print/print.css" media="print">
+</head>
+<body class="rds theme-report">
+<div class="rds-wrap">
+
+  <header class="rds-masthead">
+    <span class="rds-eyebrow">Sector briefing</span>
+    <h1>The headline claim, <strong>stated as a finding</strong></h1>
+    <p class="rds-dek">One sentence that says what the reader learns and what it rests on —
+      not what the document is about.</p>
+  </header>
+
+  <div class="rds-card">
+    <span class="h">In brief</span>
+    <ul>
+      <li>Lead with the number that changes a decision.</li>
+      <li>Say what would have to be true for it to be wrong.</li>
+      <li>Name the source and its vintage.</li>
+    </ul>
+  </div>
+
+  <div class="rds-stats">
+    <div class="rds-stat"><span class="rds-stat-value">$776.0bn</span><span class="rds-stat-label">Total imports, FY2025-26</span></div>
+    <div class="rds-stat"><span class="rds-stat-value">+7.60%</span><span class="rds-stat-label">Year on year</span></div>
+    <div class="rds-stat"><span class="rds-stat-value">98</span><span class="rds-stat-label">HS chapters populated</span></div>
+  </div>
+
+  <h2><span class="rds-num">1</span>What the data says</h2>
+  <p>Body copy sits in a serif face at a measured width. Keep paragraphs to one idea.
+    Put the caveat next to the claim, not in a footnote.</p>
+
+  <!-- Numbered exhibit: label, title, content, then a source note. Always sourced. -->
+  <figure class="rds-exhibit">
+    <div class="rds-exhibit-lab">Exhibit 1</div>
+    <div class="rds-exhibit-title">Units go in the header, never in the cells</div>
+    <div class="rds-table-wrap">
+      <table class="rds-table">
+        <thead><tr><th>Chapter</th><th class="num">FY25 ($M)</th><th class="num">FY26 ($M)</th><th class="num">Change</th></tr></thead>
+        <tbody>
+          <tr><td>28 Inorganic chemicals</td><td class="num">11,377</td><td class="num">14,180</td><td class="num">+24.6%</td></tr>
+          <tr><td>29 Organic chemicals</td><td class="num">26,591</td><td class="num">25,411</td><td class="num">&minus;4.4%</td></tr>
+          <tr class="total"><td>Total</td><td class="num">37,968</td><td class="num">39,591</td><td class="num">+4.3%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figcaption class="rds-note">Source: DGCI&amp;S TradeStat, HS-2 chapter level, retrieved 18 July 2026.</figcaption>
+  </figure>
+
+  <div class="rds-side">
+    <span class="h">Side box — the counter-argument</span>
+    Use this for the case against your own finding. If there isn't one, the finding is probably too weak to publish.
+  </div>
+
+  <div class="rds-warn">
+    <span class="h">Warning box — what would break this</span>
+    Reserve for a material caveat: a stale vintage, a disputed reporter, an assumption the conclusion cannot survive.
+  </div>
+
+  <p class="rds-source">Sources &amp; method. Name every dataset, its vintage, and the retrieval date.
+    Where two reporters disagree, say so and state which you used.</p>
+
+  <nav class="rds-pager">
+    <a href="#">&larr;&nbsp;Previous</a>
+    <a href="#">Next&nbsp;&rarr;</a>
+  </nav>
+
+</div>
+<span id="pgtotal"></span>
+</body>
+</html>

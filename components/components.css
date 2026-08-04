@@ -1,0 +1,116 @@
+/* ============================================================================
+   components.css — reads semantic tokens only. Never hard-code a hex here.
+   Requires tokens.css and one theme from themes/.
+   ============================================================================ */
+
+/* ---- Base -------------------------------------------------------------- */
+.rds{font-family:var(--font-body);color:var(--c-text);background:var(--c-bg);
+     font-size:var(--step-0);line-height:1.62;-webkit-text-size-adjust:100%}
+.rds *,.rds *::before,.rds *::after{box-sizing:border-box}
+.rds p{margin:0 0 var(--sp-4);max-width:var(--measure)}
+.rds a{color:var(--c-accent);text-underline-offset:2px}
+.rds-wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--sp-4)}
+.rds-wrap--wide{max-width:var(--wrap-wide)}
+
+/* Kill inherited drop-caps. Blogger themes apply ::first-letter to post bodies,
+   which enlarged the leading character of every block — including a bare "←",
+   which then read as a broken button. */
+.rds ::first-letter{font-size:inherit!important;float:none!important;
+  line-height:inherit!important;font-weight:inherit!important;margin:0!important}
+
+/* ---- Headings ---------------------------------------------------------- */
+.rds h1,.rds h2,.rds h3{font-family:var(--font-display);color:var(--c-text);
+  letter-spacing:-.01em;line-height:1.18;margin:0 0 var(--sp-3)}
+.rds h1{font-size:var(--step-4);font-weight:300}
+.rds h1 strong{font-weight:700}
+.rds h2{font-size:var(--step-2);font-weight:700;
+  border-top:2px solid var(--c-rule);padding-top:var(--sp-3);margin-top:var(--sp-7)}
+.rds h3{font-size:var(--step-1);font-weight:600;margin-top:var(--sp-5)}
+
+/* Numbered section badge: <h2><span class="rds-num">3</span>Title</h2> */
+.rds-num{display:inline-flex;align-items:center;justify-content:center;
+  min-width:1.7em;height:1.7em;margin-right:.55em;border-radius:var(--radius-sm);
+  background:var(--c-accent);color:var(--c-on-accent);
+  font-size:.62em;font-weight:700;font-variant-numeric:tabular-nums}
+
+/* ---- Eyebrow / dek / masthead ------------------------------------------ */
+.rds-eyebrow{font-family:var(--font-display);font-size:var(--step--2);
+  letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--c-accent)}
+.rds-dek{font-size:var(--step-1);color:var(--c-text-mut);font-weight:300;
+  max-width:var(--measure);margin:0 0 var(--sp-5)}
+.rds-masthead{border-bottom:3px solid var(--c-rule);padding-bottom:var(--sp-4);
+  margin-bottom:var(--sp-6)}
+
+/* ---- Stat row ---------------------------------------------------------- */
+.rds-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:var(--sp-3);margin:var(--sp-5) 0}
+.rds-stat{background:var(--c-surface);border:1px solid var(--c-border);
+  border-radius:var(--radius);padding:var(--sp-4)}
+.rds-stat-value{display:block;font-family:var(--font-display);font-size:var(--step-2);
+  font-weight:700;color:var(--c-text);font-variant-numeric:tabular-nums;line-height:1.1}
+.rds-stat-label{display:block;margin-top:var(--sp-1);font-size:var(--step--1);
+  color:var(--c-text-mut)}
+
+/* ---- Exhibit (numbered figure/table block) ------------------------------ */
+.rds-exhibit{border-top:2px solid var(--c-rule);padding-top:var(--sp-3);
+  margin:var(--sp-6) 0}
+.rds-exhibit-lab{font-family:var(--font-display);font-size:var(--step--2);
+  letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--c-text-mut)}
+.rds-exhibit-title{font-family:var(--font-display);font-size:var(--step-1);
+  font-weight:700;margin:var(--sp-1) 0 var(--sp-3)}
+.rds-note{font-size:var(--step--2);color:var(--c-text-mut);line-height:1.5;
+  margin-top:var(--sp-3)}
+
+/* ---- Table ------------------------------------------------------------- */
+.rds-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.rds-table{border-collapse:collapse;width:100%;font-family:var(--font-display);
+  font-size:var(--step--1)}
+.rds-table thead th{background:var(--c-rule);color:#fff;text-align:left;
+  padding:var(--sp-2) var(--sp-3);white-space:nowrap;font-weight:600}
+.rds-table td,.rds-table th{padding:var(--sp-2) var(--sp-3);
+  border-bottom:1px solid var(--c-border);vertical-align:top}
+.rds-table tbody tr:nth-child(even){background:var(--c-surface)}
+/* Units belong in the header, not in every cell. */
+.rds-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rds-table tr.total td{border-top:2px solid var(--c-rule);font-weight:700}
+
+/* ---- Callouts ---------------------------------------------------------- */
+.rds-side,.rds-warn,.rds-card{border-radius:var(--radius-sm);
+  padding:var(--sp-4) var(--sp-5);margin:var(--sp-5) 0;font-size:var(--step--1)}
+.rds-side{background:var(--c-surface);border-left:4px solid var(--c-accent)}
+.rds-warn{background:var(--c-surface-2);border-left:4px solid var(--c-neg)}
+.rds-card{background:var(--c-surface);border:1px solid var(--c-border)}
+.rds-side .h,.rds-warn .h{display:block;font-family:var(--font-display);
+  font-weight:700;margin-bottom:var(--sp-2);color:var(--c-text)}
+
+/* ---- Card grid --------------------------------------------------------- */
+.rds-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:var(--sp-3)}
+.rds-item{display:flex;flex-direction:column;justify-content:space-between;gap:var(--sp-2);
+  background:var(--c-surface);border-left:3px solid var(--c-accent);
+  padding:var(--sp-3) var(--sp-4);text-decoration:none;min-height:88px;
+  transition:background .15s,border-color .15s}
+.rds-item:hover{background:var(--c-surface-2);border-left-color:var(--c-accent-soft)}
+
+/* ---- Pills & tags ------------------------------------------------------ */
+.rds-pill{display:inline-block;background:var(--c-surface-2);border:1px solid var(--c-border);
+  border-radius:var(--radius-pill);padding:.2rem .7rem;font-family:var(--font-display);
+  font-size:var(--step--2);color:var(--c-text-mut)}
+
+/* ---- Pager ------------------------------------------------------------- */
+.rds-pager{display:flex;justify-content:space-between;gap:var(--sp-3);
+  border-top:2px solid var(--c-rule);margin-top:var(--sp-7);padding-top:var(--sp-4);
+  font-family:var(--font-display);font-size:var(--step--1)}
+
+/* ---- Source line / colophon -------------------------------------------- */
+.rds-source{font-size:var(--step--2);color:var(--c-text-mut);
+  border-top:1px solid var(--c-border);margin-top:var(--sp-6);padding-top:var(--sp-3)}
+
+/* ---- Charts: SVG inherits type + colour, and never overflows ------------ */
+.rds svg{max-width:100%;height:auto;font-family:var(--font-display)}
+
+/* ---- Responsive -------------------------------------------------------- */
+@media (max-width:640px){
+  .rds-grid{grid-template-columns:1fr}
+  .rds-side,.rds-warn,.rds-card{padding:var(--sp-3) var(--sp-4)}
+}

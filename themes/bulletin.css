@@ -1,0 +1,16 @@
+/* bulletin.css — editorial teal/rust. The dominant house style across the blog.
+   Serif body, warm paper ground, rust for alerts. Light only. */
+.rds.theme-bulletin{
+  --c-bg:var(--paper);
+  --c-surface:var(--paper-alt);
+  --c-surface-2:var(--sage-1);
+  --c-border:var(--sage-2);
+  --c-text:var(--ink);
+  --c-text-mut:var(--warm-gray);
+  --c-accent:var(--teal-deep);
+  --c-accent-soft:var(--teal-mid);
+  --c-on-accent:#fff;
+  --c-rule:var(--teal-dark);
+  --c-neg:var(--rust);
+  --font-body:var(--font-serif);
+}

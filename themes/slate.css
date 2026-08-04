@@ -1,0 +1,19 @@
+/* slate.css — dark repo-site / dashboard shell.
+   The ONLY theme intended to render dark; it flips text tokens too, so there is
+   no black-on-dark hazard. Apply with <html data-theme="dark"> for full effect. */
+.rds.theme-slate{
+  --c-bg:#0f172a;
+  --c-surface:#1e293b;
+  --c-surface-2:#273449;
+  --c-border:#334155;
+  --c-text:#e2e8f0;
+  --c-text-mut:#94a3b8;
+  --c-accent:var(--blue-web);
+  --c-accent-soft:#7dd3fc;
+  --c-on-accent:#fff;
+  --c-rule:#334155;
+  --c-pos:#22c55e;
+  --c-neg:#f59e0b;
+  --font-body:var(--font-sans);
+}
+.rds.theme-slate .rds-table thead th{background:var(--c-surface-2);color:var(--c-text)}

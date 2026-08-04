@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Research Design System — style guide</title>
+<link rel="stylesheet" href="../tokens/tokens.css">
+<link rel="stylesheet" href="../themes/report.css">
+<link rel="stylesheet" href="../themes/bulletin.css">
+<link rel="stylesheet" href="../themes/slate.css">
+<link rel="stylesheet" href="../components/components.css">
+<style>
+ .sw{display:inline-flex;align-items:center;gap:.5rem;width:250px;margin:.2rem .4rem .2rem 0;font-size:12px}
+ .sw i{width:26px;height:26px;border-radius:5px;border:1px solid rgba(0,0,0,.15);flex:none}
+ .sw code{font-size:11px} .sw small{color:var(--c-text-mut);font-size:10px;margin-left:auto}
+ .demo{border:1px dashed var(--c-border);border-radius:8px;padding:1rem;margin:1rem 0}
+</style></head>
+<body class="rds theme-report"><div class="rds-wrap">
+<header class="rds-masthead">
+ <span class="rds-eyebrow">Living style guide</span>
+ <h1>Research <strong>Design System</strong></h1>
+ <p class="rds-dek">One token contract, three themes, one component set. Themes override only
+ the semantic layer; components never hard-code a colour.</p>
+</header>
+
+<h2><span class="rds-num">1</span>Palette</h2>
+<p>Raw palette values. Components must not reference these directly &mdash; they read the
+semantic <code>--c-*</code> tokens, which each theme rebinds.</p>
+<div><div class="sw"><i style="background:#f8f9fa"></i><code>--gray-0</code><small>#f8f9fa</small></div><div class="sw"><i style="background:#f1f3f5"></i><code>--gray-1</code><small>#f1f3f5</small></div><div class="sw"><i style="background:#e9ecef"></i><code>--gray-2</code><small>#e9ecef</small></div><div class="sw"><i style="background:#dee2e6"></i><code>--gray-3</code><small>#dee2e6</small></div><div class="sw"><i style="background:#ced4da"></i><code>--gray-4</code><small>#ced4da</small></div><div class="sw"><i style="background:#adb5bd"></i><code>--gray-5</code><small>#adb5bd</small></div><div class="sw"><i style="background:#868e96"></i><code>--gray-6</code><small>#868e96</small></div><div class="sw"><i style="background:#495057"></i><code>--gray-7</code><small>#495057</small></div><div class="sw"><i style="background:#343a40"></i><code>--gray-8</code><small>#343a40</small></div><div class="sw"><i style="background:#212529"></i><code>--gray-9</code><small>#212529</small></div><div class="sw"><i style="background:#1f5f5b"></i><code>--teal-deep</code><small>#1f5f5b</small></div><div class="sw"><i style="background:#58bdb5"></i><code>--teal-mid</code><small>#58bdb5</small></div><div class="sw"><i style="background:#1d3634"></i><code>--teal-dark</code><small>#1d3634</small></div><div class="sw"><i style="background:#a5402c"></i><code>--rust</code><small>#a5402c</small></div><div class="sw"><i style="background:#e0785f"></i><code>--coral</code><small>#e0785f</small></div><div class="sw"><i style="background:#d7dace"></i><code>--sage-2</code><small>#d7dace</small></div><div class="sw"><i style="background:#eef1ea"></i><code>--sage-1</code><small>#eef1ea</small></div><div class="sw"><i style="background:#82867a"></i><code>--warm-gray</code><small>#82867a</small></div><div class="sw"><i style="background:#fcfcfa"></i><code>--paper</code><small>#fcfcfa</small></div><div class="sw"><i style="background:#f6f6f4"></i><code>--paper-alt</code><small>#f6f6f4</small></div><div class="sw"><i style="background:#14180f"></i><code>--ink</code><small>#14180f</small></div><div class="sw"><i style="background:#051c2c"></i><code>--navy</code><small>#051c2c</small></div><div class="sw"><i style="background:#0b2a3d"></i><code>--navy-soft</code><small>#0b2a3d</small></div><div class="sw"><i style="background:#2251ff"></i><code>--blue</code><small>#2251ff</small></div><div class="sw"><i style="background:#00a9f4"></i><code>--cyan</code><small>#00a9f4</small></div><div class="sw"><i style="background:#3987e5"></i><code>--blue-web</code><small>#3987e5</small></div><div class="sw"><i style="background:#8fa3b5"></i><code>--steel</code><small>#8fa3b5</small></div><div class="sw"><i style="background:#c9d3da"></i><code>--mist</code><small>#c9d3da</small></div><div class="sw"><i style="background:#f4f7fb"></i><code>--panel-1</code><small>#f4f7fb</small></div><div class="sw"><i style="background:#eef2f6"></i><code>--panel-2</code><small>#eef2f6</small></div><div class="sw"><i style="background:#0a5a2d"></i><code>--pos</code><small>#0a5a2d</small></div><div class="sw"><i style="background:#a5402c"></i><code>--neg</code><small>#a5402c</small></div><div class="sw"><i style="background:#c0392b"></i><code>--warn</code><small>#c0392b</small></div><div class="sw"><i style="background:#0a2d5a"></i><code>--info</code><small>#0a2d5a</small></div></div>
+
+<h2><span class="rds-num">2</span>Type scale</h2>
+<p>Fluid <code>clamp()</code> steps &mdash; no breakpoints needed.</p>
+<div class="demo"><p style="font-size:var(--step--2);margin:.2rem 0">--step--2 — Grain, currency, capacity</p><p style="font-size:var(--step--1);margin:.2rem 0">--step--1 — Grain, currency, capacity</p><p style="font-size:var(--step-0);margin:.2rem 0">--step-0 — Grain, currency, capacity</p><p style="font-size:var(--step-1);margin:.2rem 0">--step-1 — Grain, currency, capacity</p><p style="font-size:var(--step-2);margin:.2rem 0">--step-2 — Grain, currency, capacity</p><p style="font-size:var(--step-3);margin:.2rem 0">--step-3 — Grain, currency, capacity</p><p style="font-size:var(--step-4);margin:.2rem 0">--step-4 — Grain, currency, capacity</p></div>
+
+<h2><span class="rds-num">3</span>Components</h2>
+<div class="rds-stats">
+ <div class="rds-stat"><span class="rds-stat-value">776.0</span><span class="rds-stat-label">Imports ($bn)</span></div>
+ <div class="rds-stat"><span class="rds-stat-value">+7.6%</span><span class="rds-stat-label">YoY</span></div>
+ <div class="rds-stat"><span class="rds-stat-value">98</span><span class="rds-stat-label">Chapters</span></div>
+</div>
+<figure class="rds-exhibit">
+ <div class="rds-exhibit-lab">Exhibit 1</div>
+ <div class="rds-exhibit-title">Units in the header, figures right-aligned and tabular</div>
+ <div class="rds-table-wrap"><table class="rds-table">
+  <thead><tr><th>Chapter</th><th class="num">FY25 ($M)</th><th class="num">FY26 ($M)</th></tr></thead>
+  <tbody><tr><td>28 Inorganic</td><td class="num">11,377</td><td class="num">14,180</td></tr>
+  <tr><td>29 Organic</td><td class="num">26,591</td><td class="num">25,411</td></tr>
+  <tr class="total"><td>Total</td><td class="num">37,968</td><td class="num">39,591</td></tr></tbody>
+ </table></div>
+ <figcaption class="rds-note">Source: DGCI&amp;S TradeStat, retrieved 18 July 2026.</figcaption>
+</figure>
+<div class="rds-side"><span class="h">Side box</span>The counter-argument to your own finding.</div>
+<div class="rds-warn"><span class="h">Warning box</span>What would have to be true for this to be wrong.</div>
+<p><span class="rds-pill">pill</span> <span class="rds-pill">vintage</span></p>
+
+<h2><span class="rds-num">4</span>Themes</h2>
+<div class="demo rds theme-bulletin" style="background:var(--c-bg);color:var(--c-text)">
+ <span class="rds-eyebrow">theme-bulletin</span>
+ <p>Editorial teal/rust on warm paper. Serif body. The house style.</p>
+ <div class="rds-side"><span class="h">Side box</span>Rebound to teal.</div>
+</div>
+<div class="demo rds theme-report">
+ <span class="rds-eyebrow">theme-report</span>
+ <p>Navy/blue analyst report. Numbered exhibits, heavy rules.</p>
+</div>
+<div class="demo rds theme-slate" style="background:var(--c-bg);color:var(--c-text)">
+ <span class="rds-eyebrow">theme-slate</span>
+ <p>Dark shell for dashboards &mdash; the only theme that renders dark, and it flips the
+ text tokens too, so there is no black-on-dark hazard.</p>
+</div>
+
+<p class="rds-source">Research Design System v1.0.0 &middot; tokens/tokens.css is the contract.</p>
+</div></body></html>

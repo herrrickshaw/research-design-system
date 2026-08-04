@@ -1,0 +1,20 @@
+/* report.css — navy/blue long-form analyst report.
+   Sans display, generous rules, numbered exhibits. Used by flagship reports. */
+.rds.theme-report{
+  --c-bg:#fff;
+  --c-surface:var(--panel-1);
+  --c-surface-2:var(--panel-2);
+  --c-border:#d0d5d9;
+  --c-text:var(--navy);
+  --c-text-mut:#5a666e;
+  --c-accent:var(--blue);
+  --c-accent-soft:var(--cyan);
+  --c-on-accent:#fff;
+  --c-rule:var(--navy);
+  --c-neg:var(--warn);
+  --font-body:var(--font-serif);
+  --font-display:var(--font-sans);
+}
+/* Report exhibits carry a heavier top rule and a cyan kicker. */
+.rds.theme-report .rds-exhibit{border-top-width:2px}
+.rds.theme-report .rds-eyebrow{color:var(--cyan)}

@@ -1,0 +1,31 @@
+/* print.css — A4 / WeasyPrint. Load AFTER tokens + theme.
+   Carries two fixes that cost real debugging time; do not "simplify" them. */
+@page{
+  size:A4; margin:16mm 13mm 15mm 13mm;
+  @top-left{content:string(sectiontitle);font-family:Helvetica,Arial,sans-serif;
+    font-size:7pt;letter-spacing:.06em;text-transform:uppercase;color:#82867a}
+  @bottom-right{content:counter(page) " / " string(totalpages);
+    font-family:Helvetica,Arial,sans-serif;font-size:8pt;color:#82867a;
+    font-variant-numeric:tabular-nums}
+}
+h1{string-set:sectiontitle content()}
+
+/* FIX 1 — blank first page.
+   The span that feeds the page total must be absolutely positioned. Left in
+   normal flow it opens a line box before the flex container and emits a blank
+   leading page. */
+#pgtotal{string-set:totalpages content();position:absolute;
+  width:0;height:0;overflow:hidden;color:transparent}
+
+/* FIX 2 — infinite layout loop.
+   Do NOT force display:block on flex containers here. WeasyPrint hangs
+   (observed: 6 hours) on some documents when a flex parent is re-flowed to
+   block mid-pagination. Keep them flex and adjust gap/width instead. */
+html{background:#fff}
+.rds{background:#fff!important;color:#000}
+.rds-side,.rds-warn,.rds-card,.rds-exhibit,.rds-table{break-inside:avoid}
+.rds h2,.rds h3{break-after:avoid}
+.rds-table thead{display:table-header-group}
+.rds a{color:#000;text-decoration:none}
+.rds a[href^="http"]::after{content:" (" attr(href) ")";font-size:7pt;color:#82867a}
+.rds-pager,.rds-nav,.no-print{display:none!important}

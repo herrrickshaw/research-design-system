@@ -1,0 +1,79 @@
+/* ============================================================================
+   tokens.css — the single token contract
+   Every theme in themes/ redefines ONLY the semantic layer below.
+   Components in components/ read semantic tokens exclusively, never raw hex.
+   ============================================================================ */
+
+:root {
+  /* ---- Palette: neutrals (Open Color gray ramp, already in use across repos) */
+  --gray-0:#f8f9fa; --gray-1:#f1f3f5; --gray-2:#e9ecef; --gray-3:#dee2e6;
+  --gray-4:#ced4da; --gray-5:#adb5bd; --gray-6:#868e96; --gray-7:#495057;
+  --gray-8:#343a40; --gray-9:#212529;
+
+  /* ---- Palette: editorial (the dominant blog family) */
+  --teal-deep:#1f5f5b;  --teal-mid:#58bdb5;  --teal-dark:#1d3634;
+  --rust:#a5402c;       --coral:#e0785f;
+  --sage-2:#d7dace;     --sage-1:#eef1ea;    --warm-gray:#82867a;
+  --paper:#fcfcfa;      --paper-alt:#f6f6f4; --ink:#14180f;
+
+  /* ---- Palette: report (navy/blue, used by the flagship long-form reports) */
+  --navy:#051c2c; --navy-soft:#0b2a3d; --blue:#2251ff; --cyan:#00a9f4;
+  --blue-web:#3987e5; --steel:#8fa3b5; --mist:#c9d3da;
+  --panel-1:#f4f7fb; --panel-2:#eef2f6;
+
+  /* ---- Palette: status */
+  --pos:#0a5a2d; --neg:#a5402c; --warn:#c0392b; --info:#0a2d5a;
+
+  /* ---- Type: two stacks. Serif for reading, sans for UI/labels, mono for figures */
+  --font-serif:Georgia,'Times New Roman',serif;
+  --font-sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+  --font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --font-body:var(--font-serif);
+  --font-display:var(--font-sans);
+
+  /* ---- Fluid type scale (Utopia-style clamp; no media queries needed) */
+  --step--2:clamp(.70rem,.68rem + .10vw,.76rem);
+  --step--1:clamp(.78rem,.75rem + .15vw,.85rem);
+  --step-0 :clamp(.92rem,.88rem + .20vw,1.00rem);
+  --step-1 :clamp(1.05rem,1.00rem + .30vw,1.20rem);
+  --step-2 :clamp(1.30rem,1.20rem + .50vw,1.60rem);
+  --step-3 :clamp(1.60rem,1.40rem + .90vw,2.10rem);
+  --step-4 :clamp(2.00rem,1.70rem + 1.40vw,2.90rem);
+
+  /* ---- Space, radius, elevation */
+  --sp-1:.25rem; --sp-2:.5rem; --sp-3:.75rem; --sp-4:1rem;
+  --sp-5:1.5rem; --sp-6:2rem;  --sp-7:3rem;   --sp-8:4rem;
+  --radius:12px; --radius-sm:8px; --radius-pill:999px;
+  --shadow-1:0 1px 2px rgba(0,0,0,.04);
+  --shadow-2:0 2px 8px rgba(0,0,0,.06);
+
+  /* ---- Layout */
+  --measure:68ch;        /* optimal reading width  */
+  --wrap:1040px;         /* standard page column   */
+  --wrap-wide:1320px;    /* wide/dashboard column  */
+
+  /* ---- Semantic layer — THE CONTRACT. Themes override only these. */
+  --c-bg:#fff;
+  --c-surface:var(--gray-0);
+  --c-surface-2:var(--gray-1);
+  --c-border:var(--gray-3);
+  --c-text:var(--gray-9);
+  --c-text-mut:var(--gray-6);
+  --c-accent:var(--teal-deep);
+  --c-accent-soft:var(--teal-mid);
+  --c-on-accent:#fff;
+  --c-rule:var(--gray-9);       /* heavy top-rules on exhibits/sections */
+  --c-pos:var(--pos);
+  --c-neg:var(--neg);
+}
+
+/* Dark mode is OPT-IN, never automatic.
+   A previous `prefers-color-scheme:dark` block flipped surface tokens dark while
+   published text stayed force-black, producing invisible black-on-dark copy.
+   Opt in explicitly with <html data-theme="dark"> and only where you have
+   verified the text tokens flip too. */
+:root[data-theme="dark"]{
+  --c-bg:#0f172a; --c-surface:#1e293b; --c-surface-2:#273449;
+  --c-border:#334155; --c-text:#e2e8f0; --c-text-mut:#94a3b8;
+  --c-accent:var(--blue-web); --c-on-accent:#fff; --c-rule:#334155;
+}
