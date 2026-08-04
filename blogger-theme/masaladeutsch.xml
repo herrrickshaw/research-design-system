@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:version='2' class='v2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<meta content='width=device-width, initial-scale=1' name='viewport'/>
+<meta content='#0B1F2D' name='theme-color'/>
+<b:include data='blog' name='all-head-content'/>
+<title><data:blog.pageTitle/></title>
+<b:skin><![CDATA[
+/* ===========================================================================
+   Masala Deutsch — a Blogger theme built for long, data-heavy analysis posts.
+   No third-party JavaScript. No packed/encrypted footer scripts. No web fonts.
+
+   Two design constraints came from real failures on this blog:
+   1. Index pages render post SNIPPETS, never full bodies. Rendering full
+      bodies blew Blogger's per-page budget on 30-530KB posts and the post
+      list silently came back EMPTY.
+   2. NO automatic dark mode, at any level. The posts force a white background
+      with !important, so a theme-level dark block flips the text to near-white
+      while the surface stays white -- the page renders blank. See the note on
+      the palette below.
+   =========================================================================== */
+
+:root{
+  --ink:#0B1F2D;        /* headings, body text  */
+  --ink-soft:#43535F;   /* secondary text       */
+  --accent:#2251FF;     /* links, rules         */
+  --accent-ink:#1B3FCC; /* link hover           */
+  --cyan:#00A9F4;       /* kickers, eyebrow rules */
+  --bg:#FFFFFF;
+  --bg-alt:#F4F7FB;
+  --line:#D9E1E8;
+  --hero:#0B1F2D;
+  --hero-ink:#FFFFFF;
+  --serif:Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+  --wrap:1080px;
+  --measure:70ch;
+}
+/* NO dark mode. Deliberately, and this was learned the hard way twice.
+   The published posts carry their own `body{background:#fff!important}`
+   override. A theme-level prefers-color-scheme block flips --ink to near-white
+   but CANNOT flip the surface, because the post's !important wins -- so every
+   heading and link renders white-on-white and the page reads as blank.
+   A theme declares <body>; it does not get the last word on it.
+   Light only. Do not re-add a dark block without first removing the
+   force-white rules from all 69 post bodies. */
+
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 var(--serif);
+  -webkit-text-size-adjust:100%}
+img{max-width:100%;height:auto}
+a{color:var(--accent);text-underline-offset:2px}
+a:hover{color:var(--accent-ink)}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:20px}
+
+/* ---- Header ---------------------------------------------------------- */
+.site-head{border-bottom:1px solid var(--line);background:var(--bg);
+  position:sticky;top:0;z-index:20}
+.site-head .wrap{display:flex;align-items:center;gap:18px;
+  justify-content:space-between;min-height:60px;flex-wrap:wrap}
+.site-title{font-family:var(--sans);font-weight:700;font-size:1rem;
+  letter-spacing:.02em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+.site-title span{color:var(--accent)}
+.site-nav{font-family:var(--sans);font-size:.82rem;display:flex;gap:16px;flex-wrap:wrap}
+.site-nav a{text-decoration:none}
+.site-nav a:hover{text-decoration:underline}
+
+/* ---- Hero / featured -------------------------------------------------- */
+.hero{background:var(--hero);color:var(--hero-ink);padding:72px 0 66px;margin-bottom:8px}
+.hero .kicker{font-family:var(--sans);font-size:.7rem;letter-spacing:.18em;
+  text-transform:uppercase;font-weight:700;color:var(--cyan);margin-bottom:14px}
+.hero h2{font-size:2.5rem;line-height:1.12;margin:0 0 16px;letter-spacing:-.02em;font-weight:300}
+.hero h2 strong{font-weight:700}
+.hero h2 a{color:var(--hero-ink);text-decoration:none}
+.hero h2 a:hover{text-decoration:underline}
+.hero p{color:#C7D4DF;max-width:var(--measure);margin:0 0 16px}
+.hero .more{font-family:var(--sans);font-size:.82rem;font-weight:700;
+  color:#7FA5FF;text-decoration:none;letter-spacing:.04em;text-transform:uppercase}
+
+/* ---- Post list (index) ------------------------------------------------ */
+.section-label{font-family:var(--sans);font-size:.7rem;letter-spacing:.18em;
+  text-transform:uppercase;font-weight:700;color:var(--ink);
+  border-top:2px solid var(--ink);padding-top:10px;margin:52px 0 0;
+  display:block}
+.card{border-bottom:1px solid var(--line);padding:32px 0;transition:padding-left .18s}
+.card:hover{padding-left:8px}
+.card:last-child{border-bottom:none}
+.card h3{font-size:1.5rem;line-height:1.22;margin:0 0 8px;letter-spacing:-.015em;font-weight:400}
+.card h3 a{color:var(--ink);text-decoration:none}
+.card h3 a:hover{color:var(--accent)}
+.card .meta{font-family:var(--sans);font-size:.75rem;color:var(--ink-soft);
+  margin-bottom:8px;font-variant-numeric:tabular-nums}
+.card p{margin:0 0 10px;color:var(--ink-soft);max-width:var(--measure)}
+.card .more{font-family:var(--sans);font-size:.78rem;font-weight:700;
+  text-decoration:none;letter-spacing:.04em;text-transform:uppercase}
+
+/* ---- Single post ------------------------------------------------------ */
+.post-head{padding:52px 0 18px;border-bottom:2px solid var(--ink);margin-bottom:32px}
+.post-head h1{font-size:2.6rem;line-height:1.14;margin:0 0 14px;letter-spacing:-.025em;font-weight:300}
+.post-head h1 strong{font-weight:700}
+.post-head .meta{font-family:var(--sans);font-size:.78rem;color:var(--ink-soft)}
+.post-body{font-size:1.02rem}
+.post-body p{max-width:var(--measure)}
+.post-body h2,.post-body h3{line-height:1.3}
+/* Long analysis posts carry wide tables; they scroll in their own box so the
+   page body never scrolls sideways on a phone. */
+.post-body table{max-width:100%;border-collapse:collapse}
+.post-body .table-scroll,.post-body div[style*="overflow"]{overflow-x:auto}
+.post-body img{height:auto}
+
+/* ---- Gadget slots in the page body -----------------------------------
+   The whole reason this theme exists. Blogger's modern themes (Contempo,
+   Soho, Emporio, Notable) allow NO gadgets in the page body, so a
+   topic index cannot be placed with the content. These sections do. */
+.slot{margin:26px 0}
+.slot .widget{margin-bottom:20px}
+.slot h2,.slot h3{font-family:var(--sans);font-size:.7rem;letter-spacing:.18em;
+  text-transform:uppercase;font-weight:700;color:var(--ink-soft);margin:0 0 10px}
+.slot ul{margin:0;padding-left:1.1rem}
+.slot li{margin-bottom:5px}
+
+/* ---- Browse-by-topic block (an HTML gadget in the main-bottom slot) ----
+   Sits BELOW the recent-article list: newest work first, whole archive after. */
+.browse{border-top:2px solid var(--ink);margin-top:40px;padding-top:20px}
+.browse-head h2{font-family:var(--sans);font-size:1.15rem;font-weight:700;
+  margin:0 0 6px;color:var(--ink);letter-spacing:-.01em}
+.browse-head p{font-family:var(--sans);font-size:.85rem;color:var(--ink-soft);margin:0}
+.topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));
+  gap:20px 28px;margin:26px 0 8px}
+.topic h3{font-family:var(--sans);font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;font-weight:700;color:var(--ink);margin:0 0 8px;
+  border-bottom:2px solid var(--accent);padding-bottom:5px}
+.topic h3 span{color:var(--ink-soft);font-weight:400;letter-spacing:0}
+.topic ul{margin:0;padding:0;list-style:none}
+.topic li{margin-bottom:6px;line-height:1.4}
+.topic a{font-size:.92rem;text-decoration:none;color:var(--ink)}
+.topic a:hover{color:var(--accent);text-decoration:underline}
+
+/* ---- Pager & footer --------------------------------------------------- */
+.pager{display:flex;justify-content:space-between;gap:16px;
+  border-top:2px solid var(--ink);margin-top:34px;padding:16px 0 0;
+  font-family:var(--sans);font-size:.8rem;font-weight:700}
+.pager a{text-decoration:none}
+.site-foot{border-top:1px solid var(--line);margin-top:48px;padding:24px 0 40px;
+  font-family:var(--sans);font-size:.78rem;color:var(--ink-soft)}
+.site-foot .widget{margin-bottom:12px}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  .hero h2{font-size:1.55rem}
+  .post-head h1{font-size:1.6rem}
+  .site-head{position:static}
+}
+]]></b:skin>
+</head>
+
+<body>
+
+<header class='site-head'>
+  <div class='wrap'>
+    <a class='site-title' expr:href='data:blog.homepageUrl'>
+      <data:blog.title/>
+    </a>
+    <b:section class='site-nav' id='nav' maxwidgets='2' showaddelement='yes'>
+      <b:widget id='PageList1' locked='false' title='Pages' type='PageList'>
+        <b:includable id='main'>
+          <b:loop values='data:links' var='link'>
+            <a expr:href='data:link.target'><data:link.title/></a>
+          </b:loop>
+        </b:includable>
+      </b:widget>
+    </b:section>
+  </div>
+</header>
+
+<!-- Featured post / hero. Snippet only — never the full body. -->
+<b:section class='hero-section' id='featured' showaddelement='yes'/>
+
+<div class='wrap'>
+
+  <!-- Gadget slot ABOVE the post list. An HTML/JavaScript gadget dropped
+       here puts an all-articles-by-topic index on the opening page. -->
+  <b:section class='slot' id='main-top' showaddelement='yes'/>
+
+  <b:section class='main' id='main' showaddelement='yes'>
+    <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
+      <b:includable id='main'>
+
+        <b:if cond='data:blog.pageType == &quot;item&quot;'>
+          <!-- ============ SINGLE POST: full body ============ -->
+          <b:loop values='data:posts' var='post'>
+            <div class='post-head'>
+              <h1><data:post.title/></h1>
+              <div class='meta'><data:post.timestamp/></div>
+            </div>
+            <div class='post-body'>
+              <data:post.body/>
+            </div>
+          </b:loop>
+
+        <b:else/>
+          <!-- ============ INDEX: snippets only ============
+               data:post.body here would re-render every post in full and
+               exhaust Blogger's page budget, which silently empties the
+               whole list. Snippets keep index pages cheap. -->
+          <div class='section-label'>Recent analysis</div>
+          <b:loop values='data:posts' var='post'>
+            <div class='card'>
+              <h3><a expr:href='data:post.url'><data:post.title/></a></h3>
+              <div class='meta'><data:post.timestamp/></div>
+              <b:if cond='data:post.snippet'>
+                <p><data:post.snippet/></p>
+              </b:if>
+              <a class='more' expr:href='data:post.url'>Read the piece &#8594;</a>
+            </div>
+          </b:loop>
+        </b:if>
+
+        <div class='pager'>
+          <b:if cond='data:newerPageUrl'>
+            <a expr:href='data:newerPageUrl'>&#8592; Newer</a>
+          <b:else/>
+            <span/>
+          </b:if>
+          <b:if cond='data:olderPageUrl'>
+            <a expr:href='data:olderPageUrl'>Older &#8594;</a>
+          </b:if>
+        </div>
+
+      </b:includable>
+    </b:widget>
+  </b:section>
+
+  <!-- Gadget slot BELOW the post list — the strip that was unreachable
+       in Notable is an ordinary, addressable section here. -->
+  <b:section class='slot' id='main-bottom' showaddelement='yes'/>
+
+</div>
+
+<footer class='site-foot'>
+  <div class='wrap'>
+    <b:section id='footer' showaddelement='yes'>
+      <b:widget id='Attribution1' locked='false' title='' type='Attribution'>
+        <b:includable id='main'>
+          <div><data:post.byline/></div>
+        </b:includable>
+      </b:widget>
+    </b:section>
+  </div>
+</footer>
+
+</body>
+</html>
