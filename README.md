@@ -1,5 +1,9 @@
 # Research Design System
 
+<!-- how-to-use-with-ai -->
+> **New here?** See [How to use this repo with AI (Claude, Gemini, ChatGPT)](HOW_TO_USE_WITH_AI.md) — clone it, paste it into an AI tool, and ask in plain English.
+
+
 One token contract, four themes, one component set — extracted from the design assets
 already in use across ~42 local repos and two Blogger properties, then consolidated so
 new work doesn't reinvent them.
