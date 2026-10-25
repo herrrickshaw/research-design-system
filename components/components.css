@@ -65,7 +65,7 @@
 .rds-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .rds-table{border-collapse:collapse;width:100%;font-family:var(--font-display);
   font-size:var(--step--1)}
-.rds-table thead th{background:var(--c-rule);color:#fff;text-align:left;
+.rds-table thead th{background:var(--c-rule);color:var(--c-on-accent);text-align:left;
   padding:var(--sp-2) var(--sp-3);white-space:nowrap;font-weight:600}
 .rds-table td,.rds-table th{padding:var(--sp-2) var(--sp-3);
   border-bottom:1px solid var(--c-border);vertical-align:top}
