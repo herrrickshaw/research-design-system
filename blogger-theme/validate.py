@@ -16,7 +16,7 @@ clean = re.sub(r'<!--.*?-->', lambda m: '' if not inc(m.start()) else m.group(0)
 for label, needle in [("b:version", "b:version='2'"), ("b namespace", "xmlns:b="),
                       ("all-head-content", "name='all-head-content'"),
                       ("b:skin", "<b:skin><![CDATA["), ("Blog widget", "type='Blog'")]:
-    if needle not in src: fails.append(f"missing {label}")
+    if needle not in clean: fails.append(f"missing {label}")  # commented-out markup does not count
 index = clean.split("cond='data:blog.pageType")[1].split('<b:else/>', 1)[1].split('</b:includable>')[0]
 if 'data:post.body' in index: fails.append("index branch renders post.body -- will empty the post list")
 if 'data:post.snippet' not in index: fails.append("index branch missing data:post.snippet")
