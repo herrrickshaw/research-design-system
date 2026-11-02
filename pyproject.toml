@@ -1,0 +1,18 @@
+[project]
+name = "research-design-system"
+version = "0.1.0"
+description = "CSS design system plus Blogger post generators"
+requires-python = ">=3.9"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py39"
+extend-exclude = [".venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B"]
+# Generators embed long CSS/HTML literals and one-statement-per-line is not enforced there.
+per-file-ignores = { "blog-build/*.py" = ["E401", "E501", "E701", "E702", "E741"] }

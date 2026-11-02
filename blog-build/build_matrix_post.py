@@ -6,9 +6,11 @@ Light-only per site rule. Same aggregation as scripts/build_scrutiny_matrix.py.
 """
 import datetime, json, os, sqlite3, sys
 
+from blogkit import TRANSLATE
+
 TWIN = os.path.expanduser("~/digital-twin-for-ipa")
 sys.path.insert(0, os.path.join(TWIN, "scripts"))
-from build_reportage import scheme_hits
+from build_reportage import scheme_hits  # noqa: E402 (path set just above)
 
 DB = os.path.expanduser("~/india-trade-sector-policy-recommendations/data/pib_index.sqlite")
 ACTIVE_MIN_Q, RECENT_DAYS = 10, 365
@@ -115,15 +117,6 @@ CSS = """<style>/*gs-typo-unify-v1*/
  margin-top:2rem;padding-top:12px;max-width:82ch}
 @media(max-width:640px){.smx .bl{flex-basis:130px}}
 </style>"""
-
-TRANSLATE = ('\n<div id="google_translate_element" style="margin:8px 0 16px;"></div>'
- '<script type="text/javascript">function googleTranslateElementInit(){'
- 'new google.translate.TranslateElement({pageLanguage:"en",'
- 'layout:google.translate.TranslateElement.InlineLayout.SIMPLE,autoDisplay:false},'
- '"google_translate_element");}</script>'
- '<script type="text/javascript" '
- 'src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">'
- '</script>\n')
 
 QR = "https://masaladeutsch.blogspot.com/2026/08/quarterly-reportage-4034-scheme.html"
 LS = "https://masaladeutsch.blogspot.com/2026/08/lok-sabha-question-registry-1843-scheme.html"

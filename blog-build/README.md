@@ -7,6 +7,7 @@
 | `build_rs_post.py` | Rajya Sabha Question Registry post | digital-twin-for-ipa `data/registers/rs_pq_registry.json` (absolute path) |
 | `build_matrix_post.py` | Most Discussed Schemes in Parliament post (pre-rendered, no JS payload) | PIB sqlite + both twin registries |
 | `insert_5ai.py` | Section 5a-i (BIS policy-rate table) for the green-debt article | BIS WS_CBPOL rates, embedded & verified in-script |
+| `blogkit.py` | Shared helpers: `encode_payload()` (ASCII/inert JSON payload) and the `TRANSLATE` widget | (imported by the generators) |
 | `idx_groups.json` | Topic grouping consumed by the browse-by-topic gadget | curated from the Article Index post |
 
 Paths assume the authoring session layout (Claude Code scratchpad + local
