@@ -1,2 +1,10 @@
 .DS_Store
 node_modules/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+blog-build/matrix_post.html
+blog-build/reportage_post.html
+blog-build/insert_5ai.html
