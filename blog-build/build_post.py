@@ -6,7 +6,9 @@ dictionary-encoded JSON payload rendered client-side is ~515KB. The payload is
 forced to pure ASCII and its &, < and > are \\u-escaped as well, because Blogger's
 editor rewrites bare entities inside <script> blocks (the rupee-in-script bug).
 """
-import json, datetime, collections
+import json, datetime
+
+from blogkit import TRANSLATE, encode_payload
 
 rows = json.load(open('rows.json'))
 GEN = "2026-08-04"
@@ -19,12 +21,7 @@ R = [[r['d'], sorted(si[x] for x in r['s'].split('; ')), mi[r['m']], int(r['p'])
      for r in rows]
 R.sort(key=lambda x: (x[0], x[3]), reverse=True)
 
-payload = json.dumps({"s": schemes, "m": mins, "r": R},
-                     ensure_ascii=True, separators=(',', ':'))
-# Blogger mangles bare entities inside <script>; keep the payload 7-bit and inert.
-for ch, esc in (('&', '\\u0026'), ('<', '\\u003c'), ('>', '\\u003e')):
-    payload = payload.replace(ch, esc)
-assert payload.isascii() and '</' not in payload
+payload = encode_payload({"s": schemes, "m": mins, "r": R})
 
 nq = len({d[:4] + 'Q' + str((int(d[5:7]) - 1) // 3 + 1) for d, *_ in R})
 first, last = min(r[0] for r in R), max(r[0] for r in R)
@@ -87,15 +84,6 @@ CSS = """<style>/*gs-typo-unify-v1*/
   font-family:-apple-system,'Segoe UI',sans-serif!important;font-size:.85em;font-weight:700}
 @media(max-width:640px){.rpx .ctl{position:static}}
 </style>"""
-
-TRANSLATE = ('\n<div id="google_translate_element" style="margin:8px 0 16px;"></div>'
- '<script type="text/javascript">function googleTranslateElementInit(){'
- 'new google.translate.TranslateElement({pageLanguage:"en",'
- 'layout:google.translate.TranslateElement.InlineLayout.SIMPLE,autoDisplay:false},'
- '"google_translate_element");}</script>'
- '<script type="text/javascript" '
- 'src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">'
- '</script>\n')
 
 BODY = f"""<div class="rpx">
 

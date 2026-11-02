@@ -8,6 +8,8 @@ posts force white backgrounds, so no dark blocks anywhere).
 """
 import json, datetime
 
+from blogkit import TRANSLATE, encode_payload
+
 rows = json.load(open('/Users/umashankar/digital-twin-for-ipa/data/registers/ls_pq_registry.json'))
 GEN = datetime.date.today().isoformat()
 
@@ -22,11 +24,7 @@ R = [[r['iso'], sorted(si[s] for s in r['schemes']), mi[r['ministry']], r['lok']
      for r in rows]
 R.sort(key=lambda x: (x[0], x[5]), reverse=True)
 
-payload = json.dumps({"s": schemes, "m": mins, "r": R},
-                     ensure_ascii=True, separators=(',', ':'))
-for ch, escp in (('&', '\\u0026'), ('<', '\\u003c'), ('>', '\\u003e')):
-    payload = payload.replace(ch, escp)
-assert payload.isascii() and '</' not in payload
+payload = encode_payload({"s": schemes, "m": mins, "r": R})
 
 nq = len({r['q'] for r in rows})
 first, last = min(r['iso'] for r in rows), max(r['iso'] for r in rows)
@@ -84,15 +82,6 @@ CSS = """<style>/*gs-typo-unify-v1*/
   font-family:-apple-system,'Segoe UI',sans-serif!important;font-size:.85em;font-weight:700}
 @media(max-width:640px){.pqx .ctl{position:static}}
 </style>"""
-
-TRANSLATE = ('\n<div id="google_translate_element" style="margin:8px 0 16px;"></div>'
- '<script type="text/javascript">function googleTranslateElementInit(){'
- 'new google.translate.TranslateElement({pageLanguage:"en",'
- 'layout:google.translate.TranslateElement.InlineLayout.SIMPLE,autoDisplay:false},'
- '"google_translate_element");}</script>'
- '<script type="text/javascript" '
- 'src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">'
- '</script>\n')
 
 BODY = f"""<div class="pqx">
 
