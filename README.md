@@ -1,19 +1,28 @@
 # Research Design System
 
-<!-- how-to-use-with-ai -->
-> **New here?** See [How to use this repo with AI (Claude, Gemini, ChatGPT)](HOW_TO_USE_WITH_AI.md) — clone it, paste it into an AI tool, and ask in plain English.
+A CSS design system for research reports, editorial bulletins and dashboards: one token contract,
+four themes and one component set, plus the Blogger theme and post generators that publish with it.
+It produces plain CSS/HTML assets (no build step) and a few self-contained Blogger post HTML files.
 
+> Status: maintained. Extracted from design assets used across ~42 local repos and two Blogger
+> properties. No licence file yet; all rights reserved. See also [How to use this repo with AI](HOW_TO_USE_WITH_AI.md).
 
-One token contract, four themes, one component set — extracted from the design assets
-already in use across ~42 local repos and two Blogger properties, then consolidated so
-new work doesn't reinvent them.
+## What it does
+- Defines a three-layer token contract (palette, scale, semantic) in `tokens/tokens.css` and `tokens/tokens.json`.
+- Ships four themes (`bulletin`, `report`, `reportage`, `slate`) that only rebind the semantic `--c-*` tokens.
+- Provides one component set (`rds-*` classes) and an A4 print stylesheet tuned for WeasyPrint.
+- Includes starter templates for a report, a bulletin and a dashboard, and a live gallery in `docs/index.html`.
+- Includes a Blogger XML theme with a validator (`blogger-theme/validate.py`).
+- Includes generators for the masaladeutsch.blogspot.com data posts (`blog-build/`).
 
-Includes [`INVENTORY.md`](INVENTORY.md): a classified record of every HTML, CSS and JSON
-design/template asset found in the workspace.
+## Quick start
+```bash
+git clone https://github.com/herrrickshaw/research-design-system.git
+cd research-design-system
+open docs/index.html          # live examples; or copy a file from templates/
+```
 
-## Install
-
-Load in this order. Order matters — themes rebind tokens, components read them.
+Load in this order. Order matters: themes rebind tokens, components read them.
 
 ```html
 <link rel="stylesheet" href="tokens/tokens.css">
@@ -24,11 +33,20 @@ Load in this order. Order matters — themes rebind tokens, components read them
 
 ```html
 <body class="rds theme-report">
-  <div class="rds-wrap"> … </div>
+  <div class="rds-wrap"> ... </div>
 </body>
 ```
 
-## The contract
+## How it works
+| Stage | Module | Output |
+|---|---|---|
+| Tokens | `tokens/tokens.css` | palette, scale and semantic custom properties |
+| Theme | `themes/*.css` | rebinding of the ~12 `--c-*` tokens |
+| Components | `components/components.css` | `rds-*` classes that read only semantic tokens |
+| Print | `print/print.css` | A4 pagination rules |
+| Blog posts | `blog-build/build_*.py` + `blog-build/blogkit.py` | one self-contained Blogger post HTML per script |
+
+### The contract
 
 `tokens/tokens.css` defines three layers:
 
@@ -42,7 +60,7 @@ The rule that keeps it maintainable: **components never reference a raw palette 
 A theme is therefore just a rebinding of the ~12 `--c-*` tokens. `tokens/tokens.json`
 carries the same values for tooling.
 
-## Themes
+### Themes
 
 | Theme | Use for | Ground | Accent |
 |---|---|---|---|
@@ -51,18 +69,16 @@ carries the same values for tooling.
 | `theme-reportage` | announcement feeds, quarterly digests | sage `#eef1ea` | teal `#1f5f5b` |
 | `theme-slate` | dashboards, repo sites | slate `#0f172a` | blue `#3987e5` |
 
-## Components
+### Components
 
 `rds-wrap` · `rds-masthead` · `rds-eyebrow` · `rds-dek` · `rds-num` · `rds-stats`/`rds-stat`
 · `rds-exhibit` · `rds-table` · `rds-side` · `rds-warn` · `rds-card` · `rds-grid`/`rds-item`
 · `rds-pill` · `rds-pager` · `rds-source` · `rds-note`
 
-Live examples: [`docs/index.html`](docs/index.html). Starting points:
-[`templates/report.html`](templates/report.html),
-[`templates/bulletin.html`](templates/bulletin.html),
-[`templates/dashboard.html`](templates/dashboard.html).
+Starting points: [`templates/report.html`](templates/report.html),
+[`templates/bulletin.html`](templates/bulletin.html), [`templates/dashboard.html`](templates/dashboard.html).
 
-## Conventions worth keeping
+### Conventions worth keeping
 
 - **Units go in the table header, not in every cell.** `<th>FY26 ($M)</th>`, then bare
   numbers in `.num` cells (right-aligned, `tabular-nums`).
@@ -71,7 +87,41 @@ Live examples: [`docs/index.html`](docs/index.html). Starting points:
   scrolls horizontally.
 - **Reading width is capped** at `--measure` (68ch). Dashboards opt out with `.rds-wrap--wide`.
 
-## Three bugs this system exists to prevent
+## Repository layout
+| Path | Purpose |
+|---|---|
+| `tokens/` | token contract as CSS and JSON |
+| `themes/` | four theme stylesheets |
+| `components/`, `print/` | component and print stylesheets |
+| `templates/`, `docs/` | starter pages and the live example gallery |
+| `blogger-theme/` | Blogger XML theme, design notes, gadget snippets, `validate.py` |
+| `blog-build/` | Blogger post generators; shared helpers in `blogkit.py` (see its README) |
+| `tests/` | pytest suite for `blogkit.py` and `validate.py` |
+| `INVENTORY.md`, `inventory.json` | classified record of 67 design/template assets found in the workspace (2026-08-04 snapshot) |
+
+## Data sources
+Only the `blog-build/` generators consume data, and only from sibling local clones
+(`digital-twin-for-ipa`, `india-trade-sector-policy-recommendations`) or a `rows.json` extract.
+Upstream sources are sansad.in, rsdoc.nic.in, PIB and BIS WS_CBPOL; see `blog-build/README.md`.
+
+## Configuration
+None for the CSS. The generators use absolute or `~`-relative paths from the authoring machine
+(documented in `blog-build/README.md`); edit them when running elsewhere. No secrets are needed or stored.
+
+## Testing
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install pytest ruff
+ruff check . && pytest -q
+(cd blogger-theme && python3 validate.py)    # theme structure checks
+```
+
+## Limitations and known issues
+- The post generators cannot run without the author's local data clones; they are kept as a record of the build.
+- `build_pq_post.py` and `build_rs_post.py` write to a hard-coded scratch path. Left unchanged to preserve behaviour.
+- The Blogger posts are light-only by design (see the dark-mode hazard below).
+
+### Three bugs this system exists to prevent
 
 Each cost real debugging time. The fixes are in the code with comments — please don't
 "tidy" them away.
@@ -91,7 +141,7 @@ must be `position:absolute` (otherwise it opens a line box and emits a blank lea
 page), and you must **not** force `display:block` on flex containers during pagination
 (observed hang: 6 hours).
 
-## Provenance
+### Provenance
 
 Consolidated from `chemical_import_substitution/design/design_v2.css` (Open Color ramp,
 fluid type), `docs/style.css` (slate shell),
@@ -99,3 +149,6 @@ fluid type), `docs/style.css` (slate shell),
 systems embedded in published posts on `masaladeutsch.blogspot.com` and
 `usiponavadaaariponacoffee.blogspot.com` — which is where most of the real design
 language lived, uncommitted to any repo.
+
+## Licence
+No licence file yet; all rights reserved.
